@@ -6,7 +6,7 @@ name: jd_pet
 on:
   workflow_dispatch:
   schedule:
-    - cron: '35 30 8,18 * *'
+    - cron: '35 30 */12 * *'
   watch:
     types: [started]
   repository_dispatch:
