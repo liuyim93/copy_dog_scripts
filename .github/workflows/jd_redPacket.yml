@@ -6,7 +6,7 @@ name: jd_redPacket
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 17 7,17 * *'
+    - cron: '7 */12 * * *'
   watch:
     types: started
   repository_dispatch:
