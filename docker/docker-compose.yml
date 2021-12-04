@@ -1,5 +1,5 @@
 jd_scripts:
-  image: akyakya/jd_scripts
+  image: jd_scripts
   container_name: jd_scripts
   restart: always
   #如果需要自定定义定时任务的需要自己写好`my_crontab_list.sh`文件 ，取消下面的挂载注释 ，通过 `volumes`挂载进去。
