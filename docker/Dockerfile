@@ -7,16 +7,16 @@ RUN set -ex \
         && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
         && echo "Asia/Shanghai" > /etc/timezone
 
-RUN git clone https://github.com/lxk0301/jd_scripts /scripts \
+RUN git clone https://github.com/liuyim93/copy_dog_scripts /scripts \
         && cd /scripts \
         && mkdir logs \
         && npm install \
         && cd ~ \
         && npm install request
 
-ENV CRONTAB_LIST_FILE crontab_list_ts.sh
+ENV CRONTAB_LIST_FILE my_crontab_list.sh
 
-RUN crontab /scripts/docker/crontab_list_ts.sh
+RUN crontab /scripts/docker/my_crontab_list.sh
 
 WORKDIR /scripts
 
