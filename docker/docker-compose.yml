@@ -11,7 +11,7 @@ jd_scripts:
     # 注意环境变量填写值的时候一律不需要引号（""或者''）下面这些只是事例，根据自己的需求增加删除
     #jd cookies
     # 例: JD_COOKIE=pt_key=XXX;pt_pin=XXX
-    - JD_COOKIE=pt_key=AAJhjnLZADAUIZ-gGITERQGyR6d93jheChef0QeYIR7atFJ8Uw3N1RsWo-qBnswPmF0IgS425kU; pt_pin=jd_72b1f7712194f;pt_key=AAJhj6egADA0gUDiN5J35RMrOLumtfFmSuiZPzZSJ68dSC6WXDsfupxzVdN-m2Q3pTdLyqkBYWo; pt_pin=15096310090_p;
+    - JD_COOKIE=pt_key=AAJhts9LADDiM9LsOKmTqx3VHrK0T5boeWQsTh55J6hlqdMGC0-mDHZ4Dp8CfCB3pOyqud36Bco; pt_pin=jd_72b1f7712194f;pt_key=AAJhj6egADA0gUDiN5J35RMrOLumtfFmSuiZPzZSJ68dSC6WXDsfupxzVdN-m2Q3pTdLyqkBYWo; pt_pin=15096310090_p;
     #微信server酱通
     - PUSH_KEY=
     #Bark App通知
