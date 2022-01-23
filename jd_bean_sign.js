@@ -30,7 +30,7 @@ if ($.isNode()) {
     return;
   }
   // 下载最新代码
-  await downFile();
+  //await downFile();
   const content = await fs.readFileSync('./JD_DailyBonus.js', 'utf8')
   for (let i =0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
@@ -91,7 +91,7 @@ async function execSign() {
     //运行完成后，删除下载的文件
     console.log('运行完成后，删除下载的文件\n')
     await deleteFile(path);//删除result.txt
-    await deleteFile(JD_DailyBonusPath);//删除JD_DailyBonus.js
+    //await deleteFile(JD_DailyBonusPath);//删除JD_DailyBonus.js
     console.log(`*****************京东账号${$.index} ${$.nickName || $.UserName}京豆签到完成*******************\n`);
   } catch (e) {
     console.log("京东签到脚本执行异常:" + e);
@@ -110,7 +110,8 @@ async function downFile () {
   if ($.body) {
     url = 'https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js';
   } else {
-    url = 'https://cdn.jsdelivr.net/gh/NobyDa/Script@master/JD-DailyBonus/JD_DailyBonus.js';
+    //url = 'https://cdn.jsdelivr.net/gh/NobyDa/Script@master/JD-DailyBonus/JD_DailyBonus.js';
+    url = 'https://github.com/NobyDa/Script/blob/master/JD-DailyBonus/JD_DailyBonus.js';
   }
   await download(url, './')
 }
@@ -173,7 +174,7 @@ function TotalBean() {
           } else {
             console.log(`京东服务器返回空数据`)
           }
-        }
+        }3333
       } catch (e) {
         $.logErr(e, resp)
       } finally {
