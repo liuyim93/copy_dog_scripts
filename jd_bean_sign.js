@@ -174,7 +174,7 @@ function TotalBean() {
           } else {
             console.log(`京东服务器返回空数据`)
           }
-        }3333
+        }
       } catch (e) {
         $.logErr(e, resp)
       } finally {

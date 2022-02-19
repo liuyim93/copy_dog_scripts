@@ -29,7 +29,7 @@ BoxJs或QX Gallery订阅地址: https://raw.githubusercontent.com/NobyDa/Script/
 如需获取京东金融签到Body, 可进入"京东金融"APP (iOS), 在"首页"点击"签到"并签到一次, 返回抓包app搜索关键字 h5/m/appSign 复制请求体填入json串数据内即可
 */
 
-var Key = ''; //该参数已废弃; 仅用于下游脚本的兼容, 请使用json串数据 ↓
+var Key = 'pt_key=AAJh4DXCADCkw-0KurP93ggzOWwIz9GQCTCIsNqL3_onuYS8uGIjhOwLeKmtn-47FPT63ZZOZIg; pt_pin=15096310090_p;'; //该参数已废弃; 仅用于下游脚本的兼容, 请使用json串数据 ↓
 
 var DualKey = ''; //该参数已废弃; 仅用于下游脚本的兼容, 请使用json串数据  ↓
 

@@ -127,6 +127,7 @@ async function energyCollect() {
   console.log('开始收取任务奖励好感度');
   let function_id = arguments.callee.name.toString();
   const response = await request(function_id);
+  if(!response)return;
   // console.log(`收取任务奖励好感度完成:${JSON.stringify(response)}`);
   if (response.code === '0') {
     message += `【第${response.result.medalNum + 1}块勋章完成进度】${response.result.medalPercent}%，还需收集${response.result.needCollectEnergy}好感\n`;
@@ -136,18 +137,21 @@ async function energyCollect() {
 //再次投食
 async function feedPetsAgain() {
   const response = await request('initPetTown');//再次初始化萌宠
+  if(!response)return;
   if (response.code === '0' && response.resultCode === '0' && response.message === 'success') {
     $.petInfo = response.result;
     let foodAmount = $.petInfo.foodAmount; //剩余狗粮
     if (foodAmount - 100 >= 10) {
       for (let i = 0; i < parseInt((foodAmount - 100) / 10); i++) {
         const feedPetRes = await request('feedPets');
+        if(!feedPetRes)continue;
         console.log(`投食feedPetRes`);
         if (feedPetRes.resultCode == 0 && feedPetRes.code == 0) {
           console.log('投食成功')
         }
       }
       const response2 = await request('initPetTown');
+      if(!response2)return;
       $.petInfo = response2.result;
       subTitle = $.petInfo.goodsInfo.goodsName;
       // message += `【与爱宠相识】${$.petInfo.meetDays}天\n`;
@@ -215,13 +219,18 @@ async function doTask() {
 async function masterHelpInit() {
   let res = await request(arguments.callee.name.toString());
   // console.log(`助力信息: ${JSON.stringify(res)}`);
+  if(!res){
+    return;
+  }
   if (res.code === '0' && res.resultCode === '0') {
     if (res.result.masterHelpPeoples && res.result.masterHelpPeoples.length >= 5) {
       if(!res.result.addedBonusFlag) {
         console.log("开始领取额外奖励");
         let getHelpAddedBonusResult = await request('getHelpAddedBonus');
-        console.log(`领取30g额外奖励结果：【${getHelpAddedBonusResult.message}】`);
-        message += `【额外奖励${getHelpAddedBonusResult.result.reward}领取】${getHelpAddedBonusResult.message}\n`;
+        if(getHelpAddedBonusResult){
+          console.log(`领取30g额外奖励结果：【${getHelpAddedBonusResult.message}】`);
+          message += `【额外奖励${getHelpAddedBonusResult.result.reward}领取】${getHelpAddedBonusResult.message}\n`;
+        }
       } else {
         console.log("已经领取过5好友助力额外奖励");
         message += `【额外奖励】已领取\n`;
@@ -255,6 +264,9 @@ async function slaveHelp() {
     console.log(`开始助力京东账号${$.index} - ${$.nickName}的好友: ${code}`);
     if (!code) continue;
     let response = await request(arguments.callee.name.toString(), {'shareCode': code});
+    if(!response){
+       continue;
+    }
     if (response.code === '0' && response.resultCode === '0') {
       if (response.result.helpStatus === 0) {
         console.log('已给好友: 【' + response.result.masterNickName + '】助力');
@@ -284,12 +296,15 @@ async function petSport() {
   const code = 0
   let resultCode = 0
   do {
-    let response = await request(arguments.callee.name.toString())
+    let response = await request(arguments.callee.name.toString());
+    if(!response)continue;
     console.log(`第${times}次遛狗完成: ${JSON.stringify(response)}`);
     resultCode = response.resultCode;
     if (resultCode == 0) {
       let sportRevardResult = await request('getSportReward');
-      console.log(`领取遛狗奖励完成: ${JSON.stringify(sportRevardResult)}`);
+      if(sportRevardResult){
+        console.log(`领取遛狗奖励完成: ${JSON.stringify(sportRevardResult)}`);
+      }
     }
     times++;
   } while (resultCode == 0 && code == 0)
@@ -306,6 +321,7 @@ async function taskInit() {
 async function signInitFun() {
   console.log('准备每日签到');
   const response = await request("getSignReward");
+  if(!response)return;
   console.log(`每日签到结果: ${JSON.stringify(response)}`);
   if (response.code === '0' && response.resultCode === '0') {
     console.log(`【每日签到成功】奖励${response.result.signReward}g狗粮\n`);
@@ -320,6 +336,7 @@ async function signInitFun() {
 async function threeMealInitFun() {
   console.log('准备三餐签到');
   const response = await request("getThreeMealReward");
+  if(!response)return;
   console.log(`三餐签到结果: ${JSON.stringify(response)}`);
   if (response.code === '0' && response.resultCode === '0') {
     console.log(`【定时领狗粮】获得${response.result.threeMealReward}g\n`);
@@ -336,9 +353,11 @@ async function browseSingleShopInit(item) {
   const body = {"index": item['index'], "version":1, "type":1};
   const body2 = {"index": item['index'], "version":1, "type":2};
   const response = await request("getSingleShopReward", body);
+  if(!response)return;
   // console.log(`点击进去response::${JSON.stringify(response)}`);
   if (response.code === '0' && response.resultCode === '0') {
     const response2 = await request("getSingleShopReward", body2);
+    if(!response2)return;
     // console.log(`浏览完毕领取奖励:response2::${JSON.stringify(response2)}`);
     if (response2.code === '0' && response2.resultCode === '0') {
       console.log(`【浏览指定店铺】获取${response2.result.reward}g\n`);
@@ -355,6 +374,7 @@ async function browseShopsInitFun() {
   let code = 0;
   do {
     let response = await request("getBrowseShopsReward");
+    if(!response)continue;
     console.log(`第${times}次浏览店铺结果: ${JSON.stringify(response)}`);
     code = response.code;
     resultCode = response.resultCode;
@@ -373,6 +393,7 @@ async function inviteFriendsInitFun() {
   if ($.taskInfo.inviteFriendsInit.status == 1 && $.taskInfo.inviteFriendsInit.inviteFriendsNum > 0) {
     // 如果有邀请过新用户,自动领取60gg奖励
     const res = await request('getInviteFriendsReward');
+    if(!res)return;
     if (res.code == 0 && res.resultCode == 0) {
       console.log(`领取邀请新用户奖励成功,获得狗粮现有狗粮${$.taskInfo.inviteFriendsInit.reward}g，${res.result.foodAmount}g`);
       message += `【邀请新用户】获取狗粮${$.taskInfo.inviteFriendsInit.reward}g\n`;
@@ -391,6 +412,7 @@ async function feedReachInitFun() {
   do {
     console.log(`还需要投食${needFeedTimes}次`);
     const response = await request('feedPets');
+    if(!response)continue;
     console.log(`本次投食结果: ${JSON.stringify(response)}`);
     if (response.resultCode == 0 && response.code == 0) {
       needFeedTimes--;
